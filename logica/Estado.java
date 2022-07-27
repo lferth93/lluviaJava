@@ -78,7 +78,7 @@ public class Estado {
         updatePromedio();
     }
 
-    public void updateMes(int mes, int v) {
+    public void updateDato(int mes, int v) {
         if (0 < mes && mes <= this.meses.length()) {
             this.meses.updateDato(mes - 1, v);
             this.updatePromedio();
@@ -121,7 +121,7 @@ public class Estado {
         updatePromedio();
     }
 
-    public int getMes(int m) {
+    public int getDato(int m) {
         return this.meses.getDato(m - 1);
     }
 

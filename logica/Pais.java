@@ -89,7 +89,7 @@ public class Pais {
         StringBuilder sb = new StringBuilder();
         String mName = Estado.mes.getOpcion(mes);
         for (Estado e : estados) {
-            int act = e.getMes(mes);
+            int act = e.getDato(mes);
             if (0 <= act) {
                 if (act == min)
                     c++;
@@ -123,7 +123,7 @@ public class Pais {
         sb.append('[');
         boolean primero = true;
         for (Estado e : estados) {
-            if (e.getMes(mes) == dato) {
+            if (e.getDato(mes) == dato) {
                 if (!primero)
                     sb.append(',');
                 sb.append(e.getNombre());
@@ -145,7 +145,7 @@ public class Pais {
     }
 
     public void insertarDato(int e, int m, int dato) {
-        estados[e - 1].updateMes(m, dato);
+        estados[e - 1].updateDato(m, dato);
         guardar();
     }
 }

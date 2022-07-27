@@ -7,6 +7,7 @@ import java.util.Scanner;
 import logica.*;
 
 class Lluvia {
+    private static Pais pais;
     private static Scanner scanner;
     private static String[] confirm = { "si", "s", "yes", "y" };
     private static Opciones funciones = new Opciones("realizar", new String[] {
@@ -27,8 +28,8 @@ class Lluvia {
         String datos = "datos.txt";
         if (args.length > 0)
             datos = args[0];
-        Pais pais = new Pais(new File(datos));
-        ejecutar(pais);
+        pais = new Pais(new File(datos));
+        ejecutar();
         scanner.close();
         try {
             r.close();
@@ -37,32 +38,32 @@ class Lluvia {
         }
     }
 
-    private static void ejecutar(Pais pais) {
+    private static void ejecutar() {
         boolean salir = false;
         while (!salir) {
             int opt = funciones.leerOpcion(scanner);
             System.out.println("\n" + funciones.getOpcion(opt));
             switch (opt) {
                 case 1:
-                    funcionInsertar(pais);
+                    funcionInsertar();
                     break;
                 case 2:
                     pais.tabla(System.out);
                     break;
                 case 3:
-                    funcionConsultar(pais);
+                    funcionConsultar();
                     break;
                 case 4:
-                    funcionMinimo(pais);
+                    funcionMinimo();
                     break;
                 case 5:
-                    funcionMaximo(pais);
+                    funcionMaximo();
                     break;
                 case 6:
-                    funcionPromedio(pais);
+                    funcionPromedio();
                     break;
                 case 7:
-                    funcionBorrar(pais);
+                    funcionBorrar();
                     break;
                 case 8:
                     salir = funcionSalir();
@@ -72,7 +73,7 @@ class Lluvia {
         }
     }
 
-    private static void funcionInsertar(Pais pais) {
+    private static void funcionInsertar() {
         int estado = Estado.estado.leerOpcion(scanner);
         String eNombre = Estado.estado.getOpcion(estado);
         int mes = Estado.mes.leerOpcion(scanner);
@@ -91,25 +92,25 @@ class Lluvia {
         System.out.printf("Se inserto %d en el mes %s para la entidad federativa %s.\n", r, mNombre, eNombre);
     }
 
-    private static void funcionConsultar(Pais pais) {
+    private static void funcionConsultar() {
         int estado = Estado.estado.leerOpcion(scanner);
         int mes = Estado.mes.leerOpcion(scanner);
         System.out.println(pais.consultarDato(estado, mes));
     }
 
-    private static void funcionMinimo(Pais pais) {
+    private static void funcionMinimo() {
         int mes = Estado.mes.leerOpcion(scanner);
         String res = pais.minimo(mes);
         System.out.println(res);
     }
 
-    private static void funcionMaximo(Pais pais) {
+    private static void funcionMaximo() {
         int estado = Estado.estado.leerOpcion(scanner);
         String res = pais.maximo(estado);
         System.out.println(res);
     }
 
-    public static void funcionPromedio(Pais pais) {
+    public static void funcionPromedio() {
         int e = Estado.estado.leerOpcion(scanner);
         String eName = Estado.estado.getOpcion(e);
         float prom = pais.getPromedio(e);
@@ -121,7 +122,7 @@ class Lluvia {
         System.out.printf("La media de la entidad federativa %d (%s) es de %6.2fmm.\n", e, eName, prom);
     }
 
-    public static void funcionBorrar(Pais pais) {
+    public static void funcionBorrar() {
         int e = Estado.estado.leerOpcion(scanner);
         String eName = Estado.estado.getOpcion(e);
         int m = Estado.mes.leerOpcion(scanner);
